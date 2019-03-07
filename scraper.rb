@@ -3,7 +3,7 @@ require 'mechanize'
 
 agent = Mechanize.new
 
-url = "https://eservices.moreland.vic.gov.au/ePathway/Production/Web/GeneralEnquiry/EnquiryLists.aspx?ModuleCode=LAP"
+url = "https://online.mvcc.vic.gov.au/ePathway/Production/Web/GeneralEnquiry/EnquiryLists.aspx?ModuleCode=LAP"
 
 def scrape_page(page, url)
   table = page.at("table.ContentPanel")
@@ -37,7 +37,7 @@ page = form.submit(form.button_with(type: "submit"))
 number_pages =  page.at("#ctl00_MainBodyContent_mPagingControl_pageNumberLabel").inner_text.split(" ")[3].to_i
 
 (1..number_pages).each do |no|
-  page = agent.get("https://eservices.moreland.vic.gov.au/ePathway/Production/Web/GeneralEnquiry/EnquirySummaryView.aspx?PageNumber=#{no}")
+  page = agent.get("https://online.mvcc.vic.gov.au/ePathway/Production/Web/GeneralEnquiry/EnquirySummaryView.aspx?PageNumber=#{no}")
   puts "Scraping page #{no} of results..."
   scrape_page(page, url)
 end
